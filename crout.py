@@ -5,7 +5,6 @@ def crout(A, B):
     L = np.zeros((n, n))
     U = np.zeros((n, n))
 
-    # Dekomposisi Crout
     for i in range(n):
         U[i, i] = 1
         for k in range(i, n):
@@ -15,21 +14,17 @@ def crout(A, B):
             sum = np.dot(L[k, :i], U[:i, i])
             U[i, k] = (A[i, k] - sum) / L[i, i]
 
-    # Penyelesaian sistem persamaan linear
     y = np.zeros(n)
     x = np.zeros(n)
 
-    # Penyelesaian Ly = B
     for i in range(n):
         y[i] = (B[i] - np.dot(L[i, :i], y[:i])) / L[i, i]
 
-    # Penyelesaian Ux = y
     for i in range(n - 1, -1, -1):
         x[i] = (y[i] - np.dot(U[i, i + 1:], x[i + 1:])) / U[i, i]
 
     return x
 
-# Contoh penggunaan:
 A = np.array([[2, 1, -1],
               [-3, -1, 2],
               [-2, 1, 2]])
